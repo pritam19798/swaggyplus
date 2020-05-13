@@ -1,10 +1,13 @@
 package com.thinkingstack.swaggyplus.Resources;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 @Entity
 public class Dish {
-
+	@Id
+	@GeneratedValue
 	private Long dishId;
 	private String dishName;
 	private String shortDescription;

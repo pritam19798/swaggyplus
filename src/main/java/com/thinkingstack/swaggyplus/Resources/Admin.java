@@ -1,10 +1,14 @@
 package com.thinkingstack.swaggyplus.Resources;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 
 @Entity
 public class Admin {
+	@Id
+	@GeneratedValue
 	private Long adminId;
 	private String name;
 	private String password;

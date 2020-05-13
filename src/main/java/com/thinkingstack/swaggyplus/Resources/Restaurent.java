@@ -1,29 +1,31 @@
 package com.thinkingstack.swaggyplus.Resources;
 
-import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 
 
 @Entity
 public class Restaurent {
-
-
+	@Id
+	@GeneratedValue
 	private Long restaurentId;
 	private String restaurentName;
 	private Boolean isActive;
 	private String restaurentAdress;
 	private int restaurentRating;
-	private List<Dish> dishes;
+
 	
 	public Restaurent(Long restaurentId, String restaurentName, Boolean isActive, String restaurentAdress,
-			int restaurentRating, List<Dish> dishes) {
+			int restaurentRating) {
 		this.restaurentId = restaurentId;
 		this.restaurentName = restaurentName;
 		this.isActive = isActive;
 		this.restaurentAdress = restaurentAdress;
 		this.restaurentRating = restaurentRating;
-		this.dishes = dishes;
+
 	}
 
 
@@ -77,14 +79,7 @@ public class Restaurent {
 	}
 
 
-	public List<Dish> getDishes() {
-		return dishes;
-	}
 
-
-	public void setDishes(List<Dish> dishes) {
-		this.dishes = dishes;
-	}
 
 
 	public Restaurent() {
