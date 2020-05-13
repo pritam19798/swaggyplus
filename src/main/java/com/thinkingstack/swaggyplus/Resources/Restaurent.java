@@ -1,9 +1,14 @@
 package com.thinkingstack.swaggyplus.Resources;
 
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 
 
 
@@ -17,15 +22,37 @@ public class Restaurent {
 	private String restaurentAdress;
 	private int restaurentRating;
 
+	@OneToMany(targetEntity=Dish.class,cascade=CascadeType.ALL)
+	@JoinColumn(name="resId",referencedColumnName="restaurentId")
+	private List<Dish> dishes;
 	
+	public Restaurent() {
+		
+	}
+
+
 	public Restaurent(Long restaurentId, String restaurentName, Boolean isActive, String restaurentAdress,
-			int restaurentRating) {
+			int restaurentRating, List<Dish> dishes) {
+		
 		this.restaurentId = restaurentId;
 		this.restaurentName = restaurentName;
 		this.isActive = isActive;
 		this.restaurentAdress = restaurentAdress;
 		this.restaurentRating = restaurentRating;
+		this.dishes = dishes;
+	}
 
+
+	
+
+
+	public List<Dish> getDishes() {
+		return dishes;
+	}
+
+
+	public void setDishes(List<Dish> dishes) {
+		this.dishes = dishes;
 	}
 
 
@@ -82,7 +109,5 @@ public class Restaurent {
 
 
 
-	public Restaurent() {
-		
-	}
+	
 }
