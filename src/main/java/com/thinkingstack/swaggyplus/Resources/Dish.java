@@ -71,4 +71,10 @@ public class Dish {
 	public void setPrice(Double price) {
 		this.price = price;
 	}
+	@Override
+	public String toString() {
+		return "Dish [dishId=" + dishId + ", dishName=" + dishName + ", shortDescription=" + shortDescription
+				+ ", imageUrl=" + imageUrl + ", isVeg=" + isVeg + ", freeDelivery=" + freeDelivery + ", price=" + price
+				+ "]";
+	}
 }

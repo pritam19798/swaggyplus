@@ -106,6 +106,14 @@ public class Restaurent {
 	}
 
 
+	@Override
+	public String toString() {
+		return "Restaurent [restaurentId=" + restaurentId + ", restaurentName=" + restaurentName + ", isActive="
+				+ isActive + ", restaurentAdress=" + restaurentAdress + ", restaurentRating=" + restaurentRating
+				+ ", dishes=" + dishes + "]";
+	}
+
+
 
 
 
