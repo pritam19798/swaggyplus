@@ -39,6 +39,12 @@ public class RestaurentController {
 		return restorentRepo.saveAndFlush(restaurent);
 	}
 
+	@PutMapping("/restaurent")
+	public ResponseEntity<Restaurent> editRestaurent(@RequestParam Long id, @RequestBody Restaurent restaurent){
+		Restaurent updatedRestaurent=restorentRepo.save(restaurent);
+		return new ResponseEntity<Restaurent>(updatedRestaurent,HttpStatus.OK);
+	}
+
 	@PutMapping("addDish/{id}")
 	public ResponseEntity<Restaurent> addDish(@PathVariable Long id,@RequestBody Dish dish){
 		try {
@@ -50,10 +56,17 @@ public class RestaurentController {
 			return new ResponseEntity<Restaurent>(restorentRepo.save(r),HttpStatus.OK);
 		}catch(NoSuchElementException e) {
 			return new ResponseEntity<Restaurent>( HttpStatus.NOT_FOUND);
-		}
-		
-		
+		}	
 	}
+
+	@PutMapping("editDish")
+	public ResponseEntity<Dish> editDish(@RequestParam Long id, @RequestBody Dish dish){
+		Dish updatedDish=dishRepo.save(dish);
+		return new ResponseEntity<Dish>(updatedDish,HttpStatus.OK);
+	}
+
+
+
 
 	//user Area.....
 
