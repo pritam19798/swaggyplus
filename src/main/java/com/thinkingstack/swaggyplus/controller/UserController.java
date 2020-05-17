@@ -50,7 +50,7 @@ public class UserController {
 	}
 
 	@PostMapping("/addUser")
-	public User addUser(@RequestBody User user) {
+	public ResponseEntity<String> addUser(@RequestBody User user) {
 		User parsistUser=userRepo.saveAndFlush(user);
 		Cart cart=new Cart();
 		cart.setUser(user);
@@ -58,7 +58,7 @@ public class UserController {
 		cart.setdishes(d);
 		cart.settotalAmount(this.calculatePrice(d));
 		cartrepo.save(cart);
-		return parsistUser;
+		return new ResponseEntity<>(parsistUser.getUserId().toString(),HttpStatus.OK);
 	}
 
     
