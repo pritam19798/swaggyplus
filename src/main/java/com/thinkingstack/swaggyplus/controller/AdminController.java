@@ -24,10 +24,15 @@ public class AdminController {
 	@Autowired
 	private AdminRepo adminRepo;
 	
+	@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping("/addAdmin")
-	public Admin addAdmin(@RequestBody Admin admin) {
-		return adminRepo.saveAndFlush(admin);
+	public String addAdmin(@RequestBody Admin admin) {
+		Admin temp= adminRepo.saveAndFlush(admin);
+		return temp.getAdminId().toString();
+
 	}
+
+	@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping("/login")
 	@ResponseBody
 	public ResponseEntity<String> login(@RequestBody Admin admin) {
@@ -47,6 +52,7 @@ public class AdminController {
         
 	}
 
+	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/getAdminName")
 	public ResponseEntity<String> getUserName(@RequestParam String Id){
 		
