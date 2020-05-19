@@ -90,7 +90,8 @@ public class RestaurentController {
 	public ResponseEntity<List<Restaurent>> getRestaurentByName(@RequestParam String name) {
 		try{
 			System.out.println("aaa");
-			return new ResponseEntity<List<Restaurent>>(restorentRepo.findByrestaurentName(name),HttpStatus.OK);
+			//return new ResponseEntity<List<Restaurent>>(restorentRepo.findByrestaurentName(name),HttpStatus.OK);
+			return new ResponseEntity<List<Restaurent>>(restorentRepo.findByrestaurentNameContainingIgnoreCase(name),HttpStatus.OK);
 		}catch(NoSuchElementException e) {
 			return new ResponseEntity<List<Restaurent>>( HttpStatus.NOT_FOUND);
 		}
@@ -109,12 +110,12 @@ public class RestaurentController {
 
 
 	@GetMapping("/dishName")
-	public ResponseEntity<List<Dish>> getDishByName(@RequestParam String name) {
+	public ResponseEntity<List<Restaurent>> getDishByName(@RequestParam String name) {
 		try{
 			System.out.println("aaa");
-			return new ResponseEntity<List<Dish>>(dishRepo.findBydishName(name),HttpStatus.OK);
+			return new ResponseEntity<List<Restaurent>>(restorentRepo.findByDishes_dishNameContainingIgnoreCase(name),HttpStatus.OK);
 		}catch(NoSuchElementException e) {
-			return new ResponseEntity<List<Dish>>( HttpStatus.NOT_FOUND);
+			return new ResponseEntity<List<Restaurent>>( HttpStatus.NOT_FOUND);
 		}
 	}
 	

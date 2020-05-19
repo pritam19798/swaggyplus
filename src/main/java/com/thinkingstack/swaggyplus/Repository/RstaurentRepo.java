@@ -16,4 +16,9 @@ public interface RstaurentRepo extends JpaRepository<Restaurent ,Long> {
 	@Query("SELECT R.dishes from Restaurent R WHERE R.restaurentId=:Id")
 	public List<Dish> getDishes(@Param("Id") Long Id);
 
+	public List<Restaurent> findByrestaurentNameContainingIgnoreCase(String restaurentName);
+
+	public List<Restaurent> findByDishes_dishNameContainingIgnoreCase(String restaurentName);
+
+
 }
