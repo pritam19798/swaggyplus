@@ -25,18 +25,33 @@ public class Cart {
 	private Double totalAmount;
 
 
+	@OneToOne(targetEntity=Restaurent.class,cascade=CascadeType.ALL)
+	@JoinColumn(name="resId",referencedColumnName="restaurentId")
+	private Restaurent restaurent;
 
-	public Cart(Long cartId, User user, List<Dish> dishes, Double totalAmount) {
+	public Cart() {
+		
+	}
+
+	public Cart(Long cartId, User user, Restaurent restaurent, List<Dish> dishes, Double totalAmount) {
 		this.cartId = cartId;
 		this.user = user;
+		this.restaurent = restaurent;
 		this.dishes = dishes;
 		this.totalAmount = totalAmount;
 	}
 
 
-	public Cart() {
-		
+
+
+	public Restaurent getRestaurent() {
+		return restaurent;
 	}
+
+	public void setRestaurent(Restaurent restaurent) {
+		this.restaurent = restaurent;
+	}
+
 	public Long getcartId() {
 		return cartId;
 	}

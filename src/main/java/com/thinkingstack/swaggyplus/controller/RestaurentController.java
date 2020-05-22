@@ -76,6 +76,11 @@ public class RestaurentController {
 		return restorentRepo.findAll();
 	}
 
+	@GetMapping("/getrestaurent/active")
+	public List<Restaurent> getActiveRestaurent() {
+		return restorentRepo.findByisActive(true);
+	}
+
 	@GetMapping("/restaurent")
 	public ResponseEntity<Restaurent> getRestaurentById(@RequestParam Long id) {
 		try{

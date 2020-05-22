@@ -19,9 +19,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.thinkingstack.swaggyplus.Repository.CartRepo;
 import com.thinkingstack.swaggyplus.Repository.DishRepo;
+import com.thinkingstack.swaggyplus.Repository.RstaurentRepo;
 import com.thinkingstack.swaggyplus.Repository.UserRepo;
 import com.thinkingstack.swaggyplus.Resources.Cart;
 import com.thinkingstack.swaggyplus.Resources.Dish;
+import com.thinkingstack.swaggyplus.Resources.Restaurent;
 import com.thinkingstack.swaggyplus.Resources.User;
 import com.thinkingstack.swaggyplus.UtilityFunctions.SortDish;
 
@@ -37,6 +39,9 @@ public class UserController {
 
 	@Autowired
 	private CartRepo cartrepo;
+
+	@Autowired
+	private RstaurentRepo restaurentRepo;
 
 
 
@@ -97,15 +102,43 @@ public class UserController {
 		User user=userRepo.findById(userId).get();
 		Dish dish=dishRepo.findById(dishId).get();
 		Cart cart= cartrepo.findByUser(user);
-		List<Dish> d=cart.getdishes();
-		d.add(dish);
-		Collections.sort(d, new SortDish());
-		cart.setdishes(d);
-		cart.settotalAmount(this.calculatePrice(d));
-		cart=cartrepo.save(cart);
-		
-		System.out.println(cart);
-		return cart;
+		Restaurent byDish=restaurentRepo.findByDishesContaining(dish);
+		try{
+			Restaurent ById=cart.getRestaurent();
+			if( (byDish.getRestaurentId()==ById.getRestaurentId())){
+				List<Dish> d=cart.getdishes();
+				d.add(dish);
+				Collections.sort(d, new SortDish());
+				cart.setdishes(d);
+				cart.settotalAmount(this.calculatePrice(d));
+				cart=cartrepo.save(cart);
+				System.out.println(cart);
+				return cart;
+			}
+			else{
+				List<Dish> d=cart.getdishes();
+				d.clear();
+				d.add(dish);
+				cart.setdishes(d);
+				cart.settotalAmount(this.calculatePrice(d));
+				cart.setRestaurent(byDish);
+				cart=cartrepo.save(cart);
+				System.out.println(cart);
+				return cart;
+
+			}
+		}
+		catch(Exception e){
+			List<Dish> d=cart.getdishes();
+			d.clear();
+			d.add(dish);
+			cart.setdishes(d);
+			cart.settotalAmount(this.calculatePrice(d));
+			cart.setRestaurent(byDish);
+			cart=cartrepo.save(cart);
+			System.out.println(cart);
+			return cart;
+		}
 	}
 
 	@GetMapping(value="/{userId}/cart/dish")
@@ -117,6 +150,20 @@ public class UserController {
 		return d;
 	
 	}
+
+	@GetMapping(value="/{userId}/cart/restaurent")
+	public Long getRestaurent(@PathVariable Long userId){
+
+		User user=userRepo.findById(userId).get();
+		Cart cart= cartrepo.findByUser(user);
+		try{
+		return cart.getRestaurent().getRestaurentId();
+		}
+		catch(Exception e){
+			return (long) -1;
+		}
+	}
+
 	@DeleteMapping(value="/{userId}/cart/dish")
 	public Cart deleteFromCart(@PathVariable Long userId,@RequestParam Long dishId){
 		User user=userRepo.findById(userId).get();
@@ -129,6 +176,18 @@ public class UserController {
 		cart.settotalAmount(this.calculatePrice(d));
 		return cartrepo.save(cart);
 	}
+
+	@DeleteMapping(value="/{userId}/cart")
+	public Cart deleteAllfromCart(@PathVariable Long userId){
+		User user=userRepo.findById(userId).get();
+		Cart cart=cartrepo.findByUser(user);
+		List<Dish> d=cart.getdishes();
+		d.clear();
+		cart.settotalAmount(this.calculatePrice(d));
+		cart.setdishes(d);
+		return cart;
+	}
+
 	@GetMapping(value = "/{userId}/cart/price")
 	public Double getprice(@PathVariable Long userId){
 		User user=userRepo.findById(userId).get();

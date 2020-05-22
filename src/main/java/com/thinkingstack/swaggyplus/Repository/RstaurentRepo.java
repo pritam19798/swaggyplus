@@ -20,5 +20,9 @@ public interface RstaurentRepo extends JpaRepository<Restaurent ,Long> {
 
 	public List<Restaurent> findByDishes_dishNameContainingIgnoreCase(String restaurentName);
 
+	public Restaurent findByDishesContaining(Dish dish);
+
+	public List<Restaurent> findByisActive(Boolean isActive);
+
 
 }
