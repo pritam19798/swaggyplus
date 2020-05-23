@@ -50,7 +50,7 @@ public class UserController {
 		for(Dish dish:dishes){
 			price=price+dish.getPrice();
 		}
-		System.out.println(price);
+		//System.out.println(price);
 		return price;
 	}
 
@@ -112,7 +112,7 @@ public class UserController {
 				cart.setdishes(d);
 				cart.settotalAmount(this.calculatePrice(d));
 				cart=cartrepo.save(cart);
-				System.out.println(cart);
+				//System.out.println(cart);
 				return cart;
 			}
 			else{
@@ -123,7 +123,7 @@ public class UserController {
 				cart.settotalAmount(this.calculatePrice(d));
 				cart.setRestaurent(byDish);
 				cart=cartrepo.save(cart);
-				System.out.println(cart);
+				//System.out.println(cart);
 				return cart;
 
 			}
@@ -136,7 +136,7 @@ public class UserController {
 			cart.settotalAmount(this.calculatePrice(d));
 			cart.setRestaurent(byDish);
 			cart=cartrepo.save(cart);
-			System.out.println(cart);
+			//System.out.println(cart);
 			return cart;
 		}
 	}

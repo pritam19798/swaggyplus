@@ -36,7 +36,7 @@ public class AdminController {
 	@PostMapping("/login")
 	@ResponseBody
 	public ResponseEntity<String> login(@RequestBody Admin admin) {
-		System.out.println(admin);
+		//System.out.println(admin);
 		try{
 			Admin byId=adminRepo.findById(admin.getAdminId()).get();
 			if(byId.getPassword().equals(admin.getPassword())) {
