@@ -43,6 +43,9 @@ public class UserController {
 	@Autowired
 	private RstaurentRepo restaurentRepo;
 
+	@Autowired
+	private SortDish sortDish;
+
 
 
 	public Double calculatePrice(List<Dish> dishes){
@@ -108,7 +111,7 @@ public class UserController {
 			if( (byDish.getRestaurentId()==ById.getRestaurentId())){
 				List<Dish> d=cart.getdishes();
 				d.add(dish);
-				Collections.sort(d, new SortDish());
+				Collections.sort(d,  sortDish);
 				cart.setdishes(d);
 				cart.settotalAmount(this.calculatePrice(d));
 				cart=cartrepo.save(cart);
